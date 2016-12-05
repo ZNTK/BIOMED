@@ -7,11 +7,17 @@
         android:inputType="date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextPickedDate" />
+        android:id="@+id/editTextPickedDate"
+        android:clickable="false"
+        android:editable="false"
+        android:focusable="false" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextName" />
+        android:id="@+id/editTextName"
+        android:clickable="false"
+        android:editable="false"
+        android:focusable="false" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +33,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/editTextUnit" />
+            android:id="@+id/editTextUnit"
+            android:clickable="false"
+            android:editable="false"
+            android:focusable="false" />
     </LinearLayout>
     <Button
         android:text="Ustaw"

@@ -31,7 +31,7 @@ namespace BIOMED.Resources.Activities
             pickedDate = JsonConvert.DeserializeObject<DateTime>(Intent.GetStringExtra("PickedDate"));
 
             var editTextPickedDate = FindViewById<EditText>(Resource.Id.editTextPickedDate);
-            editTextPickedDate.Text = pickedDate.ToString();
+            editTextPickedDate.Text = pickedDate.ToString("dd/MM/yyyy");
             //baza dancyh
             db = new DataBaseService();
             //db.CreateDataBase();

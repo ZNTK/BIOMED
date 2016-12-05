@@ -32,7 +32,7 @@ namespace BIOMED
             //db.ClearTable("BodyParameters");
             //wprowadzenie ty wartosci
             var parameterUnitEmpty = db.SelectTableParameterUnit();
-            if (parameterUnitEmpty == null)
+            if (parameterUnitEmpty.Count == 0)
             {
                 AddNewParameterUnits();
             }
