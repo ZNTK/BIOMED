@@ -60,14 +60,14 @@ namespace BIOMED
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050007
-			public const int btnDetails = 2131034119;
+			// aapt resource value: 0x7f05000a
+			public const int btnDetails = 2131034122;
 			
 			// aapt resource value: 0x7f050004
 			public const int btnEdit = 2131034116;
 			
-			// aapt resource value: 0x7f050006
-			public const int datePicker = 2131034118;
+			// aapt resource value: 0x7f050009
+			public const int datePicker = 2131034121;
 			
 			// aapt resource value: 0x7f050002
 			public const int editTextAmount = 2131034114;
@@ -82,7 +82,16 @@ namespace BIOMED
 			public const int editTextUnit = 2131034115;
 			
 			// aapt resource value: 0x7f050005
-			public const int listView1 = 2131034117;
+			public const int listViewParameters = 2131034117;
+			
+			// aapt resource value: 0x7f050007
+			public const int textViewAmount = 2131034119;
+			
+			// aapt resource value: 0x7f050006
+			public const int textViewName = 2131034118;
+			
+			// aapt resource value: 0x7f050008
+			public const int textViewUnit = 2131034120;
 			
 			static Id()
 			{
@@ -101,7 +110,10 @@ namespace BIOMED
 			public const int BodyParameters = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Main = 2130903041;
+			public const int ListViewParameters = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int Main = 2130903042;
 			
 			static Layout()
 			{

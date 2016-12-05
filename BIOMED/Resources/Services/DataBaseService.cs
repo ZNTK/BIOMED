@@ -120,6 +120,50 @@ namespace BIOMED.Resources.Services
                 return false;
             }
         }
+
+        public List<BodyParameters> SelectTableBodyParametersDependsOnDate(DateTime dateTime)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "BMDataBase.db")))
+                {
+                    return connection.Query<BodyParameters>("SELECT * FROM BodyParameters WHERE Date=?", dateTime.Ticks).ToList();                    
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx SelectTableBodyParametersDependsOnDate", ex.Message);
+                return null;
+            }
+        }
+
+        public bool InsertParametersUnitIntoTableBodyParametersOnSpecificDate(DateTime dateTime)
+        {
+            try
+            {
+                var listParameterUnits = SelectTableParameterUnit();
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "BMDataBase.db")))
+                {
+                    foreach(var parameterUnit in listParameterUnits)
+                    {
+                        connection.Insert(new BodyParameters()
+                        {
+                            Name = parameterUnit.Name,
+                            Unit = parameterUnit.Unit,
+                            Date = dateTime
+                        });
+                    }
+                    return true;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx InsertParametersUnitIntoTableBodyParametersOnSpecificDate", ex.Message);
+                return false;
+            }
+        }
+
+
         #endregion
         #region ParameterUnit
         public List<ParameterUnit> SelectTableParameterUnit()
@@ -137,6 +181,44 @@ namespace BIOMED.Resources.Services
                 return null;
             }
         }
+
+        public bool InsertIntoTableParameterUnit(ParameterUnit parameterUnit)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "BMDataBase.db")))
+                {
+                    connection.Insert(parameterUnit);
+                    return true;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx InsertIntoTableParameterUnit", ex.Message);
+                return false;
+            }
+        }
         #endregion
+
+        public bool ClearTable(string name)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "BMDataBase.db")))
+                {
+                    var result = SelectTableBodyParameters();
+                    foreach(var item in result)
+                    {
+                        connection.Delete(item);
+                    }                    
+                    return true;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx ClearTable", ex.Message);
+                return false;
+            }
+        }
     }
 }
