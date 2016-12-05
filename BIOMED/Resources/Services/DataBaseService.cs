@@ -35,7 +35,6 @@ namespace BIOMED.Resources.Services
                 return false;
             }
         }
-        //BodyParameters
         #region BodyParameters
         public bool InsertIntoTableBodyParameters(BodyParameters bodyParameters)
         {

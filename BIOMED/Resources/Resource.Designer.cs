@@ -57,11 +57,51 @@ namespace BIOMED
 			}
 		}
 		
+		public partial class Id
+		{
+			
+			// aapt resource value: 0x7f050007
+			public const int btnDetails = 2131034119;
+			
+			// aapt resource value: 0x7f050004
+			public const int btnEdit = 2131034116;
+			
+			// aapt resource value: 0x7f050006
+			public const int datePicker = 2131034118;
+			
+			// aapt resource value: 0x7f050002
+			public const int editTextAmount = 2131034114;
+			
+			// aapt resource value: 0x7f050001
+			public const int editTextName = 2131034113;
+			
+			// aapt resource value: 0x7f050000
+			public const int editTextPickedDate = 2131034112;
+			
+			// aapt resource value: 0x7f050003
+			public const int editTextUnit = 2131034115;
+			
+			// aapt resource value: 0x7f050005
+			public const int listView1 = 2131034117;
+			
+			static Id()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Id()
+			{
+			}
+		}
+		
 		public partial class Layout
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int BodyParameters = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int Main = 2130903041;
 			
 			static Layout()
 			{
