@@ -163,7 +163,25 @@ namespace BIOMED.Resources.Services
             }
         }
 
+        #region Charts
 
+        public List<BodyParameters> SelectTableBodyParametersFromDateToDate(DateTime dateTimeFrom, DateTime dateTimeTo)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "BMDataBase.db")))
+                {
+                    return connection.Query<BodyParameters>("SELECT * FROM BodyParameters WHERE Date>? and Date<?", dateTimeFrom.Ticks, dateTimeTo.Ticks).ToList();
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx SelectTableBodyParametersDependsOnDate", ex.Message);
+                return null;
+            }
+        }
+
+        #endregion
         #endregion
         #region ParameterUnit
         public List<ParameterUnit> SelectTableParameterUnit()
@@ -199,6 +217,7 @@ namespace BIOMED.Resources.Services
             }
         }
         #endregion
+        
 
         public bool ClearTable(string name)
         {

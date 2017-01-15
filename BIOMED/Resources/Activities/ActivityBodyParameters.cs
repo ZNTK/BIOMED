@@ -45,10 +45,19 @@ namespace BIOMED.Resources.Activities
 
             var btnEdit = FindViewById<Button>(Resource.Id.btnEdit);
 
+            var btnChart = FindViewById<Button>(Resource.Id.btnChart);
             //LoadData
             LoadData();
 
             //Events
+            //wykres
+            btnChart.Click += delegate
+            {
+                var activityCharts = new Intent(this, typeof(ActivityCharts));
+                this.StartActivity(activityCharts);
+            };
+
+            //edytuj
             btnEdit.Click += delegate
             {
                 BodyParameters bodyParameters = new BodyParameters()
