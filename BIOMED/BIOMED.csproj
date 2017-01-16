@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -85,14 +85,12 @@
     <Reference Include="TeeChart.Android">
       <HintPath>..\Components\TeeChart-16.12.12-trial\lib\android\TeeChart.Android.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Controls.BarChart.Android">
-      <HintPath>..\Components\barchart-1.1.2.1\lib\android\Xamarin.Controls.BarChart.Android.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Activities\ActivityBodyParameters.cs" />
     <Compile Include="Resources\Activities\ActivityCharts.cs" />
+    <Compile Include="Resources\Activities\ActivityDatePicker.cs" />
     <Compile Include="Resources\Adapters\ListViewParametersAdapter.cs" />
     <Compile Include="Resources\Model\BodyParameters.cs" />
     <Compile Include="Resources\Model\ParameterUnit.cs" />
@@ -112,6 +110,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Charts.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DatePicker.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

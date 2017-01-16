@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -79,12 +79,20 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="TeeChart.Android">
+      <HintPath>..\Components\TeeChart-16.12.12-trial\lib\android\TeeChart.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Controls.BarChart.Android">
+      <HintPath>..\Components\barchart-1.1.2.1\lib\android\Xamarin.Controls.BarChart.Android.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Activities\ActivityBodyParameters.cs" />
+    <Compile Include="Resources\Activities\ActivityCharts.cs" />
     <Compile Include="Resources\Adapters\ListViewParametersAdapter.cs" />
     <Compile Include="Resources\Model\BodyParameters.cs" />
     <Compile Include="Resources\Model\ParameterUnit.cs" />
@@ -103,6 +111,9 @@
     <AndroidResource Include="Resources\layout\ListViewParameters.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\Charts.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -119,9 +130,17 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <XamarinComponentReference Include="barchart">
+      <Visible>False</Visible>
+      <Version>1.1.2.1</Version>
+    </XamarinComponentReference>
     <XamarinComponentReference Include="sqlite-net">
       <Visible>False</Visible>
       <Version>1.0.11</Version>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="TeeChart">
+      <Visible>False</Visible>
+      <Version>16.12.12</Version>
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup />

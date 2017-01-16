@@ -137,6 +137,46 @@ namespace BIOMED.Resources.Services
             }
         }
 
+        public List<BodyParameters> SelectTableBodyParametersDependsOnName(string Name)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "BMDataBase.db")))
+                {
+                    return connection.Query<BodyParameters>("SELECT * FROM BodyParameters WHERE Name=? and Amount!=0", Name).ToList();
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx SelectTableBodyParametersDependsOnName", ex.Message);
+                return null;
+            }
+        }
+
+        public List<BodyParameters> SelectTableLatestAddedBodyParameters(DateTime dateTime)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "BMDataBase.db")))
+                {
+                    var latesAddedDate = connection.Query<BodyParameters>("SELECT * FROM BodyParameters ORDER BY Date limit 1");
+                    if (latesAddedDate.Count != 0)
+                    {
+                        return connection.Query<BodyParameters>("SELECT * FROM BodyParameters WHERE Date=?", latesAddedDate[0].Date.Ticks).ToList();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx SelectTableLatestAddedBodyParameters", ex.Message);
+                return null;
+            }
+        }
+
         public bool InsertParametersUnitIntoTableBodyParametersOnSpecificDate(DateTime dateTime)
         {
             try

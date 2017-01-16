@@ -22,6 +22,7 @@ namespace BIOMED.Resources.Activities
         ListView listViewData;
         List<BodyParameters> listBodyParametersSource = new List<BodyParameters>();
         DataBaseService db;
+        DatePicker datePicker;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -39,40 +40,54 @@ namespace BIOMED.Resources.Activities
             //do listview
             listViewData = FindViewById<ListView>(Resource.Id.listViewParameters);
 
+            
             var edtName = FindViewById<EditText>(Resource.Id.editTextName);
             var edtAmount = FindViewById<EditText>(Resource.Id.editTextAmount);
             var edtUnit = FindViewById<EditText>(Resource.Id.editTextUnit);
 
-            var btnEdit = FindViewById<Button>(Resource.Id.btnEdit);
+            
 
-            var btnChart = FindViewById<Button>(Resource.Id.btnChart);
+            
             //LoadData
             LoadData();
 
             //Events
             //wykres
-            btnChart.Click += delegate
-            {
-                var activityCharts = new Intent(this, typeof(ActivityCharts));
-                this.StartActivity(activityCharts);
-            };
+
 
             //edytuj
-            btnEdit.Click += delegate
-            {
-                BodyParameters bodyParameters = new BodyParameters()
-                {
-                    Id = int.Parse(edtName.Tag.ToString()),
-                    Name = edtName.Text,
-                    Date = pickedDate.Date,
-                    Unit = edtUnit.Text,
-                    Amount = int.Parse(edtAmount.Text)
-                };
-                db.UpdateTableBodyParameters(bodyParameters);
-                LoadData();
-            };
+            //btnEdit.Click += delegate
+            //{
+            //    BodyParameters bodyParameters = new BodyParameters()
+            //    {
+            //        Id = int.Parse(edtName.Tag.ToString()),
+            //        Name = edtName.Text,
+            //        Date = pickedDate.Date,
+            //        Unit = edtUnit.Text,
+            //        Amount = int.Parse(edtAmount.Text)
+            //    };
+            //    db.UpdateTableBodyParameters(bodyParameters);
+            //    LoadData();
+            //};
+
+            //listViewData.GetChildAt(4).SetBackgroundColor(Android.Graphics.Color.DarkGray);
+
 
             listViewData.ItemClick += (s, e) => {
+                //edytowanie po zmianie
+                if (edtName.Tag != null)
+                {
+                    BodyParameters bodyParameters = new BodyParameters()
+                    {
+                        Id = int.Parse(edtName.Tag.ToString()),
+                        Name = edtName.Text,
+                        Date = pickedDate.Date,
+                        Unit = edtUnit.Text,
+                        Amount = int.Parse(edtAmount.Text)
+                    };
+                    db.UpdateTableBodyParameters(bodyParameters);                    
+                }
+
                 for (int i = 0; i < listViewData.Count; i++)
                 {
                     if (e.Position == i)
@@ -91,6 +106,13 @@ namespace BIOMED.Resources.Activities
 
                 edtAmount.Text = txtAmount.Text;
                 edtUnit.Text = txtUnit.Text;
+                LoadData();
+            };
+
+            editTextPickedDate.Click += delegate
+            {                
+                this.StartActivity(typeof(ActivityDatePicker));
+                this.Finish();
             };
         }
 

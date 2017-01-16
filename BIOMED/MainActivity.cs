@@ -8,6 +8,8 @@ using BIOMED.Resources.Services;
 using System;
 using BIOMED.Resources.Model;
 using System.Linq;
+using System.Collections.Generic;
+using BIOMED.Resources.Adapters;
 
 namespace BIOMED
 {
@@ -15,6 +17,10 @@ namespace BIOMED
     public class MainActivity : Activity
     {
         DataBaseService db;
+        ListView listViewData;
+        List<BodyParameters> listBodyParametersSource = new List<BodyParameters>();
+        DateTime dateNow;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -22,14 +28,26 @@ namespace BIOMED
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
 
-            var datePicker = FindViewById<DatePicker>(Resource.Id.datePicker);
+            //var datePicker = FindViewById<DatePicker>(Resource.Id.datePicker);
             var btnDetails = FindViewById<Button>(Resource.Id.btnDetails);
+            dateNow = DateTime.Today;
 
             //database
             db = new DataBaseService();
             db.CreateDataBase();
             ////wyczyszczenie tabeli
             //db.ClearTable("BodyParameters");
+
+            //do listview
+            listViewData = FindViewById<ListView>(Resource.Id.listViewParametersMain);
+
+            //LoadData
+            if (db.SelectTableLatestAddedBodyParameters(dateNow) != null)
+            {
+                LoadData();
+            }
+                      
+
             //wprowadzenie ty wartosci
             var parameterUnitEmpty = db.SelectTableParameterUnit();
             if (parameterUnitEmpty.Count == 0)
@@ -39,14 +57,30 @@ namespace BIOMED
             //Event
             btnDetails.Click += delegate
             {
-                var bodyParametersEmpty = db.SelectTableBodyParametersDependsOnDate(datePicker.DateTime);
+                var bodyParametersEmpty = db.SelectTableBodyParametersDependsOnDate(dateNow);
                 if (bodyParametersEmpty.Count == 0)
                 {
-                    db.InsertParametersUnitIntoTableBodyParametersOnSpecificDate(datePicker.DateTime);
+                    db.InsertParametersUnitIntoTableBodyParametersOnSpecificDate(dateNow);
                 }
                 var activityBodyParameters = new Intent(this, typeof(ActivityBodyParameters));
-                activityBodyParameters.PutExtra("PickedDate", JsonConvert.SerializeObject(datePicker.DateTime));
+                activityBodyParameters.PutExtra("PickedDate", JsonConvert.SerializeObject(dateNow));
                 this.StartActivity(activityBodyParameters);
+            };
+
+            listViewData.ItemClick += (s, e) => {
+                for (int i = 0; i < listViewData.Count; i++)
+                {
+                    if (e.Position == i)
+                        listViewData.GetChildAt(i).SetBackgroundColor(Android.Graphics.Color.DarkGray);
+                    else
+                        listViewData.GetChildAt(i).SetBackgroundColor(Android.Graphics.Color.Transparent);
+                }
+                //Binding 
+                var txtName = e.View.FindViewById<TextView>(Resource.Id.textViewName);
+
+                var activityCharts = new Intent(this, typeof(ActivityCharts));
+                activityCharts.PutExtra("ParameterName", txtName.Text);
+                this.StartActivity(activityCharts);
             };
         }
 
@@ -71,6 +105,13 @@ namespace BIOMED
             db.InsertIntoTableParameterUnit(tluszcz);
             db.InsertIntoTableParameterUnit(waga);
             db.InsertIntoTableParameterUnit(wzrost);
+        }
+
+        private void LoadData()
+        {
+            listBodyParametersSource = db.SelectTableLatestAddedBodyParameters(dateNow);
+            var adapter = new ListViewParametersAdapter(this, listBodyParametersSource);
+            listViewData.Adapter = adapter;
         }
     }
 }
